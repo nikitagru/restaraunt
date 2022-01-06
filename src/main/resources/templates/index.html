@@ -66,9 +66,10 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" action="/order">
-                    <input type="text" name="postText" class="form-control" placeholder="Enter description" />
-                      <input type="date" name="orderDate" min="2021-12-01">
+                  <form method="post" th:action="@{/order}">
+                      <input type="text" name="customerName" class="form-control" placeholder="Введите ваше имя" />
+                      <input type="datetime-local" name="startOrderDate" th:min="${currentDate}">
+                      <input type="datetime-local" name="endOrderDate" th:min="${currentDate}">
                     <div class="d-flex justify-content-end">
                       <button type="submit" class="btn btn-secondary mt-2">Post</button>
                     </div>
