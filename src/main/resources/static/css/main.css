@@ -131,3 +131,42 @@ a:hover {
     padding: 0;
 }
 
+.order-input {
+    margin-bottom: 10px;
+}
+
+.datetime {
+    font-size: 1.1rem;
+}
+
+.menu-container {
+    margin-top: 10vh;
+    margin-bottom: 50px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin-top: 3vh;
+}
+
+.menu-element {
+    border: 2px solid #cfcfcf;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.menu-image {
+    height: 220px;
+    width: auto;
+    object-fit: cover;
+}
+
+.element-text {
+    font-size: 1.1rem;
+}
+
+.menu-title {
+    font-size: 2.5rem;
+}

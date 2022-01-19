@@ -2,7 +2,9 @@ package nikitagru.restaraunt.controllers;
 
 import nikitagru.restaraunt.checker.OrderChecker;
 import nikitagru.restaraunt.dto.OrderDto;
+import nikitagru.restaraunt.entities.Menu;
 import nikitagru.restaraunt.entities.Order;
+import nikitagru.restaraunt.services.MenuService;
 import nikitagru.restaraunt.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +18,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 @Controller
 public class HomeController {
 
     private OrderService orderService;
+    private MenuService menuService;
+
+    @Autowired
+    public void setMenuService(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @Autowired
     public void setOrderService(OrderService orderService) {
@@ -41,9 +48,11 @@ public class HomeController {
         c.add(Calendar.DATE, 3);
         String maxDayTime = maxDayFormat.format(c.getTime());
 
+        List<Menu> allMenuElements = menuService.getAll();
 
         model.addAttribute("minDate", minDate);
         model.addAttribute("maxDay", maxDayTime);
+        model.addAttribute("elements", allMenuElements);
         return "index";
     }
 
