@@ -1,10 +1,12 @@
 package nikitagru.restaraunt.entities;
 
 import lombok.Data;
-import nikitagru.restaraunt.dto.OrderDto;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "orders")
@@ -16,15 +18,18 @@ public class Order {
 
     private String customerName;
 
-    private Timestamp startOrderDate;
+    private String startOrderDate;
 
-    private Timestamp endOrderDate;
+    private String endOrderDate;
 
     public void setStartOrderDate(String startOrderDate) {
-        this.startOrderDate = Timestamp.valueOf(startOrderDate.replace('T', ' ') + ":00");
+        this.startOrderDate = startOrderDate + ":00Z";
     }
 
-    public void setEndOrderDate(String endOrderDate) {
-        this.endOrderDate = Timestamp.valueOf(endOrderDate.replace('T', ' ') + ":00");
+    public void setEndOrderDate(String day, String startTime) {
+        Instant startDate = Instant.parse(day + "T" + startTime + ":00Z");
+        Instant endDate = startDate.plus(2, ChronoUnit.HOURS);
+
+        this.endOrderDate = endDate.toString();
     }
 }
