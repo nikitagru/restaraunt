@@ -4,6 +4,7 @@ import nikitagru.restaraunt.checker.OrderChecker;
 import nikitagru.restaraunt.dto.OrderDto;
 import nikitagru.restaraunt.entities.Menu;
 import nikitagru.restaraunt.entities.Order;
+import nikitagru.restaraunt.services.MailSender;
 import nikitagru.restaraunt.services.MenuService;
 import nikitagru.restaraunt.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class HomeController {
 
     private OrderService orderService;
     private MenuService menuService;
+    private MailSender mailSender;
+
+    @Autowired
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Autowired
     public void setMenuService(MenuService menuService) {
@@ -67,6 +75,11 @@ public class HomeController {
                 order.setCustomerName(orderDto.getCustomerName());
                 order.setStartOrderDate(orderDto.getDate() + "T" + orderDto.getTime());
                 order.setEndOrderDate(orderDto.getDate(), orderDto.getTime());
+
+                String code = UUID.randomUUID().toString().substring(0, 5);
+                mailSender.sendSimpleEmail(orderDto.getEmail(), "Успешная бронь", code);
+
+                order.setCode(code);
                 orderService.createNewOrder(order);
             } else {
                 redirectAttributes.addFlashAttribute("error", "Свободных мест на данное время и дату уже нет.");
@@ -80,6 +93,10 @@ public class HomeController {
                     order.setCustomerName(orderDto.getCustomerName());
                     order.setStartOrderDate(orderDto.getDate() + "T" + orderDto.getTime());
                     order.setEndOrderDate(orderDto.getDate(), orderDto.getTime());
+
+                    String code = UUID.randomUUID().toString().substring(0, 5);
+                    mailSender.sendSimpleEmail(orderDto.getEmail(), "Успешная бронь", code);
+                    order.setCode(code);
                     orderService.createNewOrder(order);
                 } else {
                     redirectAttributes.addFlashAttribute("error", "Свободных мест на данное время и дату уже нет.");

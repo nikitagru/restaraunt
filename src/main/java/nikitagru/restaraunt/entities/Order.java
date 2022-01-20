@@ -22,6 +22,8 @@ public class Order {
 
     private String endOrderDate;
 
+    private String code;
+
     public void setStartOrderDate(String startOrderDate) {
         this.startOrderDate = startOrderDate + ":00Z";
     }

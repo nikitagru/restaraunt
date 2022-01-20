@@ -68,6 +68,8 @@
                       <input type="text" name="customerName" class="form-control order-input" placeholder="Введите ваше имя" />
                       <input type="date" name="date" class="datetime" th:min="${minDate}" th:max="${maxDay}">
                       <input type="time" name="time" class="datetime" min="10:00" max="20:00">
+                      <input type="email" name="email" class="email-input" placeholder="some@some.com" />
+                      <p class="text-input">Вам на почту придет письмо с кодом, не потеряйте его</p>
                     <div class="d-flex justify-content-end">
                       <button type="submit" class="btn btn-secondary mt-2">Забронировать</button>
                     </div>

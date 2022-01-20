@@ -170,3 +170,12 @@ a:hover {
 .menu-title {
     font-size: 2.5rem;
 }
+
+.email-input {
+    font-size: 1.1rem;
+}
+
+.text-input {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
